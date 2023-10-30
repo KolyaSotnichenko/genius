@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import Heading from "@/components/Heading";
-import { MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,9 +15,9 @@ import { ChatCompletionRequestMessage } from "openai";
 import axios from "axios";
 import Empty from "@/components/Empty";
 import Loader from "@/components/Loader";
-import ConversationMessageItem from "@/components/ConversationMessageItem";
+import CodeMessageItem from "@/components/CodeMessageItem";
 
-const ConversationPage = () => {
+const CodePage = () => {
   const router = useRouter();
 
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
@@ -40,7 +40,7 @@ const ConversationPage = () => {
 
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/conversation", {
+      const response = await axios.post("/api/code", {
         messages: newMessages,
       });
 
@@ -57,11 +57,11 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        description="Our most advanced conversation mode."
-        icon={MessageSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Code Generation"
+        description="Generate code using descriptive text."
+        icon={Code}
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -78,7 +78,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
+                        placeholder="Simple toggle button using react hooks"
                         {...field}
                       />
                     </FormControl>
@@ -105,7 +105,7 @@ const ConversationPage = () => {
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
-              <ConversationMessageItem key={message.content} item={message} />
+              <CodeMessageItem key={message.content} item={message} />
             ))}
           </div>
         </div>
@@ -114,4 +114,4 @@ const ConversationPage = () => {
   );
 };
 
-export default ConversationPage;
+export default CodePage;
