@@ -39,3 +39,12 @@ export const TOOLS = [
     href: "/code",
   },
 ];
+
+export const TESTIMONIALS = [
+  {
+    name: "Mykola Sotnichenko",
+    avatar: "MS",
+    title: "Full Stack Developer",
+    description: "This is the best application I've used",
+  },
+];
