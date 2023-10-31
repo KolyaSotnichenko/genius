@@ -16,9 +16,11 @@ import axios from "axios";
 import Empty from "@/components/Empty";
 import Loader from "@/components/Loader";
 import CodeMessageItem from "@/components/CodeMessageItem";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const CodePage = () => {
   const router = useRouter();
+  const proModal = useProModal();
 
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
@@ -47,8 +49,11 @@ const CodePage = () => {
       setMessages((current) => [...current, userMessage, response.data]);
 
       form.reset();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      proModal.onOpen();
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
