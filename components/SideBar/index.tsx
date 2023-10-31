@@ -15,6 +15,8 @@ import Image from "next/image";
 import Link from "next/link";
 import SideBarItem from "./SideBarItem";
 import { usePathname } from "next/navigation";
+import { FC } from "react";
+import FreeCounter from "../FreeCounter";
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
@@ -62,7 +64,11 @@ const routes = [
   },
 ];
 
-const SideBar = () => {
+interface ISideBarProps {
+  apiLimitCount: number;
+}
+
+const SideBar: FC<ISideBarProps> = ({ apiLimitCount }) => {
   const pathname = usePathname();
 
   return (
@@ -82,6 +88,7 @@ const SideBar = () => {
           ))}
         </div>
       </div>
+      <FreeCounter apiLimitCount={apiLimitCount} />
     </div>
   );
 };
